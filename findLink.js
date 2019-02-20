@@ -1,22 +1,12 @@
 'use strict';
-const CP = require('child_process');
-const Fs = require('fs');
-const Util = require('util');
-
 const Wreck = require('wreck');
 const Cheerio = require('cheerio');
 
 
 const MAIN_URL = 'https://nodejs.org/download/nightly/';
-const RE = /href="(.*)"/gm;
 
-const V10 = 'v10';
-const V12 = 'v12';
+const getLinks = function (page) {
 
-const main = async function (major) {
-
-    const res = await Wreck.get(MAIN_URL);
-    const page = res.payload.toString();
     const $ = Cheerio.load(page);
     const links = $('a');
     const hrefs = [];
@@ -24,11 +14,19 @@ const main = async function (major) {
 
         hrefs.push($(link).attr('href'));
     });
+    return hrefs;
+};
+
+const main = async function (major) {
+
+    const res = await Wreck.get(MAIN_URL);
+    const page = res.payload.toString();
+    const hrefs = getLinks(page);
 
     const lastOne = hrefs
         .filter((x) => x.startsWith(major))
-        .map((str) => ({ str, date: /(\d\d\d\d\d\d\d\d)/.exec(str)[0] }))
-        .map(({ str, date }) => {
+        .map((str) => ({str, date: /(\d\d\d\d\d\d\d\d)/.exec(str)[0]}))
+        .map(({str, date}) => {
 
             const year = date.slice(0, 4);
             const month = date.slice(4, 6);
@@ -42,10 +40,8 @@ const main = async function (major) {
         .sort((a, b) => a.date - b.date)
         .pop();
 
-    console.log(lastOne)
-
-
+    console.log(MAIN_URL + lastOne.str + 'node-' + lastOne.str.slice(0, -1) + '-linux-x64.tar.gz');
 };
 
-main(V10);
+main(process.argv.slice(-1).pop());
 
