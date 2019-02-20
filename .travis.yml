@@ -1,10 +1,15 @@
 language: node_js
 node_js:
-  - 8.9.0
+  - 10
+services:
+  - docker
 sudo: true
 install:
   - npm install
 build:
-
-
-
+  - docker build --build-arg DL_LINK=$(node findLink.js v10) -t vdeturckheim/node_nightly:v10 .
+  - docker build --build-arg DL_LINK=$(node findLink.js v12) -t vdeturckheim/node_nightly:v12 .
+publish:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push vdeturckheim/node_nightly:v10
+  - docker push vdeturckheim/node_nightly:v12
