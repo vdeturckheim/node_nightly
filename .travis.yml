@@ -1,17 +1,20 @@
 language: node_js
 node_js:
-  - 10
+- 10
 services:
-  - docker
+- docker
 sudo: true
 install:
-  - npm install
-build:
-  - docker build --build-arg DL_LINK=$(node findLink.js v10) -t vdeturckheim/node_nightly:v10 .
-  - docker build --build-arg DL_LINK=$(node findLink.js v12) -t vdeturckheim/node_nightly:v12 .
-  - docker build --build-arg DL_LINK=$(node findLink.js v12) -t vdeturckheim/node_nightly:latest .
-publish:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push vdeturckheim/node_nightly:v10
-  - docker push vdeturckheim/node_nightly:v12
-  - docker push vdeturckheim/node_nightly:latest
+- npm install
+- docker build --build-arg DL_LINK=$(node findLink.js v10) -t vdeturckheim/node_nightly:v10 .
+- docker build --build-arg DL_LINK=$(node findLink.js v12) -t vdeturckheim/node_nightly:v12 .
+- docker build --build-arg DL_LINK=$(node findLink.js v12) -t vdeturckheim/node_nightly:latest .
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker push vdeturckheim/node_nightly:v10
+- docker push vdeturckheim/node_nightly:v12
+- docker push vdeturckheim/node_nightly:latest
+
+env:
+  global:
+    - secure: JOfYB/0yzc8P6mMhl++OLDuqhYRwUuflG/LrPsVTErZpi9i89UwXvqeKLAndp/csU9M0AsVYSoCs1B0ABxS1VcdiBtqNUV/d30inDxxUH6kesagaNxTMXGcxP00oaZ91Exeu9rd9N8Q15e7uLea1giwq2OCoxFHs0Ae7KWB/3iJzbaDmbFclmq8n2vPO4T38+zD117tKz7emNgKlySInJe+KKBiuOPY9A9HV7W9Hemun4RvCV6eiLIht5mDUyKBg+Njws8rptGlQ9keJxqETsFX4pLLpB59zl241HO/sy091yIJgquLlgKUiWIi11s+wJIcWRfficyFWdshMQmpvJsCx/sz/60DdyihaYPSK0npKxMFVbtpcwfr/RXkrUiuOX7tjCkW6Qg/1AW+cwDL65RcdK3cmd6l5EkAw7aXXK+q78iUgIHPIdXqq3XkVQsRk24pIbkney8fLYCDaneXcSsiy7GhwpoX9B5Uza+6ySPKjhQRo9hAMcomCw3Nnggx9eMrV+qnHaaGaIbK7Zy91+jaS6XDrSOkQbYHvgdPU0PBbqszyDAG4UWFLnZZmkePB46JWmmyFW+SgJ+33ipYcLLWUObmWaaHHjnaWVB5C7yvEaW1fp0ykifwio9GBVS2+P4j7GNHMBjA1k+BrvKc8nM2ztANhoHpXYCAfEdWqsvI=
+    - DOCKER_USERNAME: vdeturckheim
