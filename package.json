@@ -1,0 +1,25 @@
+{
+  "name": "node_nightly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vdeturckheim/node_nightly.git"
+  },
+  "keywords": [],
+  "author": "vdeturckheim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vdeturckheim/node_nightly/issues"
+  },
+  "homepage": "https://github.com/vdeturckheim/node_nightly#readme",
+  "private": true,
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "wreck": "^14.1.4"
+  }
+}
