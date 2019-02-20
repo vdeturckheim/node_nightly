@@ -9,7 +9,9 @@ install:
 build:
   - docker build --build-arg DL_LINK=$(node findLink.js v10) -t vdeturckheim/node_nightly:v10 .
   - docker build --build-arg DL_LINK=$(node findLink.js v12) -t vdeturckheim/node_nightly:v12 .
+  - docker build --build-arg DL_LINK=$(node findLink.js v12) -t vdeturckheim/node_nightly:latest .
 publish:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push vdeturckheim/node_nightly:v10
   - docker push vdeturckheim/node_nightly:v12
+  - docker push vdeturckheim/node_nightly:latest
