@@ -25,14 +25,26 @@ const main = async function (major) {
         hrefs.push($(link).attr('href'));
     });
 
-    const linkList = hrefs
+    const lastOne = hrefs
         .filter((x) => x.startsWith(major))
-        .map((str) => ({ str, end: str.split('_').pop() }))
-        .sort((a, b) => a.end - b.end)
-        .map((x) => x.str);
+        .map((str) => ({ str, date: /(\d\d\d\d\d\d\d\d)/.exec(str)[0] }))
+        .map(({ str, date }) => {
+
+            const year = date.slice(0, 4);
+            const month = date.slice(4, 6);
+            const day = date.slice(6, 8);
+            return {
+                str,
+                raw: date,
+                date: new Date(`${year}-${month}-${day}`)
+            };
+        })
+        .sort((a, b) => a.date - b.date)
+        .pop();
+
+    console.log(lastOne)
 
 
-    console.log(JSON.stringify(linkList, null, 2))
 };
 
 main(V10);
