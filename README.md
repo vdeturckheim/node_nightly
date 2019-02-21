@@ -1,5 +1,11 @@
 # node_nightly
 
-```bash
-$ docker build --build-arg DL_LINK=$(node findLink.js v10) -t node_nightly:v12 .
-```
+This repo builds and publish docker images with Node.js nightly builds.
+
+They are available on https://hub.docker.com/r/vdeturckheim/node_nightly/
+
+## TODO:
+
+Make the repo generates the build/publish script with all available major branches.
+
+
