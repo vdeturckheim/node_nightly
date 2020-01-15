@@ -131,6 +131,7 @@ const buildV8Canary = async function() {
 
 const publish = function (tag) {
 
+    console.log('docker push ' + tag);
     const cp = CP.spawn('docker', ['push', tag], { shell: true });
     cp.stderr.pipe(process.stderr);
     cp.stdout.pipe(process.stdout);
