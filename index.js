@@ -1,6 +1,5 @@
 'use strict';
 const CP = require('child_process'); // we will use it to no give docker credentials to node when publishing images
-const Stream = require('stream');
 const Wreck = require('wreck');
 const Cheerio = require('cheerio');
 const Docker = require('dockerode');
@@ -8,23 +7,6 @@ const Docker = require('dockerode');
 const MIN_NIGHTlY_MAJOR = 11;
 const URL_NIGHTLY = 'https://nodejs.org/download/nightly/';
 const URL_V8_CANARY = 'https://nodejs.org/download/v8-canary/';
-
-const LogTransform = class extends Stream.Transform {
-
-    _transform(chunk, enc, cb) {
-
-        const str = chunk.toString().trim();
-        try {
-            const { stream } = JSON.parse(str);
-            this.push(stream);
-            cb();
-        }
-        catch (_) {
-            return cb();
-        }
-
-    }
-};
 
 const docker = new Docker();
 
@@ -90,9 +72,6 @@ const buildImage = async function (url, tag) {
             DL_LINK: url
         }
     });
-/*    stream
-        .pipe(new LogTransform())
-        .pipe(process.stdout);*/
     await new Promise((resolve, reject) => {
         docker.modem.followProgress(stream, (err, res) => err ? reject(err) : resolve(res));
     });
