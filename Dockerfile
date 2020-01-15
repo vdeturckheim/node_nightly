@@ -1,9 +1,9 @@
 FROM ubuntu
 
-ARG DL_LINK
-
 RUN apt-get update
 RUN apt-get install -y wget
+
+ARG DL_LINK
 
 RUN wget ${DL_LINK} -O node.tar.gz
 RUN mkdir node
