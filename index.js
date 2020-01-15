@@ -139,7 +139,6 @@ const publish = function (tag) {
     console.log('docker push ' + tag);
     const cp = CP.spawn('docker', ['push', tag], { shell: true });
     cp.stderr.pipe(process.stderr);
-    cp.stdout.pipe(process.stdout);
     return new Promise((resolve, reject) => {
 
         cp.on('exit', (code) => code === 0 ? resolve() : reject());
@@ -156,6 +155,7 @@ const main = async function () {
     const tagList = [canary].concat(nightly).concat(rc);
     for (const tag of tagList) {
         await publish(tag);
+        console.log('PUBLISHED', tag);
     }
 };
 
