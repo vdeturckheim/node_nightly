@@ -90,9 +90,9 @@ const buildImage = async function (url, tag) {
             DL_LINK: url
         }
     });
-    stream
+/*    stream
         .pipe(new LogTransform())
-        .pipe(process.stdout);
+        .pipe(process.stdout);*/
     await new Promise((resolve, reject) => {
         docker.modem.followProgress(stream, (err, res) => err ? reject(err) : resolve(res));
     });
