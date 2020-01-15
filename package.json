@@ -19,6 +19,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "dockerode": "^3.0.2",
+    "semver": "^7.1.1",
     "wreck": "^14.1.4"
   }
 }
