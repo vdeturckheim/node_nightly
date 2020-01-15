@@ -6,16 +6,24 @@ services:
 sudo: true
 install:
 - npm install
-- docker build --build-arg DL_LINK=$(node findLink.js v11) -t vdeturckheim/node_nightly:v11 .
-- docker build --build-arg DL_LINK=$(node findLink.js v12) -t vdeturckheim/node_nightly:v12 .
-- docker build --build-arg DL_LINK=$(node findLink.js v13) -t vdeturckheim/node_nightly:v13 .
-- docker build --build-arg DL_LINK=$(node findLink.js v14) -t vdeturckheim/node_nightly:v14 .
-- docker build --build-arg DL_LINK=$(node findLink.js v14) -t vdeturckheim/node_nightly:latest .
+- docker build --build-arg DL_LINK=$(node findLink.js nightly v11) -t vdeturckheim/node_nightly:v11 .
+- docker build --build-arg DL_LINK=$(node findLink.js nightly v12) -t vdeturckheim/node_nightly:v12 .
+- docker build --build-arg DL_LINK=$(node findLink.js nightly v13) -t vdeturckheim/node_nightly:v13 .
+- docker build --build-arg DL_LINK=$(node findLink.js nightly v14) -t vdeturckheim/node_nightly:v14 .
+- docker build --build-arg DL_LINK=$(node findLink.js nightly v14) -t vdeturckheim/node_nightly:latest .
+- docker build --build-arg DL_LINK=$(node findLink.js v8-canary v11) -t vdeturckheim/node_nightly:v11-v8-canary .
+- docker build --build-arg DL_LINK=$(node findLink.js v8-canary v12) -t vdeturckheim/node_nightly:v12-v8-canary .
+- docker build --build-arg DL_LINK=$(node findLink.js v8-canary v13) -t vdeturckheim/node_nightly:v13-v8-canary .
+- docker build --build-arg DL_LINK=$(node findLink.js v8-canary v14) -t vdeturckheim/node_nightly:v14-v8-canary .
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push vdeturckheim/node_nightly:v11
 - docker push vdeturckheim/node_nightly:v12
 - docker push vdeturckheim/node_nightly:v13
 - docker push vdeturckheim/node_nightly:v14
 - docker push vdeturckheim/node_nightly:latest
+- docker push vdeturckheim/node_nightly:v11-v8-canary
+- docker push vdeturckheim/node_nightly:v12-v8-canary
+- docker push vdeturckheim/node_nightly:v13-v8-canary
+- docker push vdeturckheim/node_nightly:v14-v8-canary
 env:
   secure: gIMbi9c+yxGZff03USwbgELo7hNSTIsE16phqZMmvLT2hBpZHheJ3B5b46PvkjoGU3HYmiLItiTIwSZ3RS0Tn1flYsQi+sKE48CK69tAwTRdFTe1aBguxXPgaKtpy22JGr6eGKziq04MW72vD4SRtI6q6L8cdUUUxtOIlq5fCwgyIXUZcfVIVRfBWb2DFx5gIYgpVklUiNp+QF5FnJ/StB219d7pmdKKl3Vi6Bd143co6htwXNebTJQE4F56RE+xJEPfpYAW6/7fJW03aRROE9vNa8qg88lsPBAqAdasiFaKMQhI+QsyNHZDjtZ0nZWZSQemlUgrSBKZDL9i3jqOYYRG6QoI0k3cy44APJEjZMv5gE8376zPsgIi0/mHvLlVeQO349FbqIeWLr7GajWbHSARyUELNLi+pot6rHNRpUmFHqI0bXItEIBPdEFNdWIGITCUTbmTXd+QsPWyexaqqamlNLVTbciwEWpleq9FaElaQukh5CGNefjZeurFJxmGs3VBoDzntdE+oOHgJFEk8bQVwSA46I/hznhP22P1w0seY3wnZzGLGSbDsIhWXullCXb3QHSApZgDdmbAyl6chuOKuZRo7xaLq920bX7fqdEQRFUT+PBtHO2t8DjtAX9cAjyTjTGDstJt9MwUi3ycePdJa92fZnX9iSrcpNrheXQ=
