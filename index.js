@@ -103,7 +103,6 @@ const buildNightly = async function () {
     const list = await getLinkList(URL_NIGHTLY);
     const majors = getMajors(list)
         .filter((x) => x >= MIN_NIGHTlY_MAJOR);
-    const max = Math.max(...majors);
 
     const tags = [];
     const links = majors.map((major) => ({ url: getLastForMajor(list, major, URL_NIGHTLY), major }));
@@ -111,10 +110,6 @@ const buildNightly = async function () {
         const tag = `vdeturckheim/node_nightly:v${major}`;
         await buildImage(url, tag);
         tags.push(tag);
-        if (major === max) {
-            await buildImage(url, 'latest');
-            tags.push('latest');
-        }
     }
     return tags;
 };
