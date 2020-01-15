@@ -2,8 +2,10 @@
 const Wreck = require('wreck');
 const Cheerio = require('cheerio');
 
-
-const MAIN_URL = 'https://nodejs.org/download/nightly/';
+const URLS = {
+    nightly: 'https://nodejs.org/download/nightly/',
+    'v8-canary': 'https://nodejs.org/download/v8-canary/'
+};
 
 const getLinks = function (page) {
 
@@ -17,8 +19,9 @@ const getLinks = function (page) {
     return hrefs;
 };
 
-const main = async function (major) {
+const main = async function (type, major) {
 
+    const MAIN_URL = URLS[type];
     const res = await Wreck.get(MAIN_URL);
     const page = res.payload.toString();
     const hrefs = getLinks(page);
@@ -43,5 +46,9 @@ const main = async function (major) {
     console.log(MAIN_URL + lastOne.str + 'node-' + lastOne.str.slice(0, -1) + '-linux-x64.tar.gz');
 };
 
-main(process.argv.slice(-1).pop());
+const args = process.argv.slice(-2);
+const version = args.pop();
+const type = args.pop();
+
+main(type, version);
 
